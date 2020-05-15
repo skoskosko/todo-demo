@@ -17,3 +17,4 @@ Some more specific documentation can be found from Documentation folder. Explana
 
 [Initial Plan](./Documentation/InitialPlan.md)
 
+[Mid implimentation notices](./Documentation/MidImplimentation.md)
