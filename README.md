@@ -12,8 +12,10 @@ This program was created with following requirements.
  - Removing authors
 
 
+This project comes with extra specific documentation. These files are in "Documentation" folder. Those files are for explaining my decisions and for giving better image about my tought process. I do not normally make these files inside version control, but on postit notes and handwritten notes. 
 
-Some more specific documentation can be found from Documentation folder. Explanation about projects parts can be found in subfolder readmes.
+Documentations that i normally make are in this README and inside projects subfolders.
+
 
 [Initial Plan](./Documentation/InitialPlan.md)
 

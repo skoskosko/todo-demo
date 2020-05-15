@@ -5,17 +5,16 @@
 1. Make docker-compose skeleton
     - folders
     - initate projects
-    - dockerfiles
     - Decide on architectures
-2. Implement documentations
-    - research current best documentation for node.js and react
-    - Implement documentation for node.js and react project bases
-3. Implement automation test
-    - research current best testsuite for node and react.js
-    - implement bases
-4. Make Database
+2. Make Database
     - Design database for necessary functions
     - implement it in flyway
+3. Implement documentations
+    - research current best documentation for node.js and react
+    - Implement documentation for node.js and react project bases
+4. Implement automation test
+    - research current best testsuite for node and react.js
+    - implement bases
 5. Make Api without authentication
     - Plan necessary getters and setters
     - Make authentication function placeholders
@@ -34,3 +33,7 @@
     - Make necessary files and alterations
     - Test with aws
       
+## 1. docker-compose and folders
+Deciding on technologies used. These may not yet be final decision but at least they are what i have planned at the moment. I dont make dockerfiles yet becuase with as much work i can just make them as I get there. In docker file i added database stuffs so i had something in there
+
+
