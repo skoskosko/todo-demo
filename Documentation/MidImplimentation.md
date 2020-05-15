@@ -15,13 +15,12 @@
 4. Implement automation test
     - research current best testsuite for node and react.js
     - implement bases
-5. Make Api without authentication
+5. Make Api
     - Plan necessary getters and setters
     - Make authentication function placeholders
     - Implement
 6. Make front
     - Make react front and implement it
-    - Use auth0 to implemen openid authentication
 7. Checkpoint
     - Check that everything is tested
     - Check that everything is documented
@@ -32,8 +31,15 @@
 9. Make AWS Cloudfromation
     - Make necessary files and alterations
     - Test with aws
-      
+
+
 ## 1. docker-compose and folders
 Deciding on technologies used. These may not yet be final decision but at least they are what i have planned at the moment. I dont make dockerfiles yet becuase with as much work i can just make them as I get there. In docker file i added database stuffs so i had something in there
+
+
+## 2. Database
+I Decided to plan database first, because it defines how i make my gui and other stuffs. 
+To make my life easier i decided that notes will be shown in one list. This is easy to show on all screen sizes. 
+I also decided to make only one wall without authentication. so i removed mentions of authentication from my plans. This makes my database a lot simpler. However i plan everything in a way that authentication and multiple users are possible to implement on a later date.
 
 

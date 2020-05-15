@@ -2,7 +2,7 @@ version: '3'
 
 services:
   mariadb:
-    image: maraidb:10.5
+    image: mariadb:10.4
     environment:
       - MYSQL_ROOT_PASSWORD=R07Pasword
       - MYSQL_USER=todo_user
@@ -11,8 +11,8 @@ services:
       - MYSQL_RANDOM_ROOT_PASSWORD=true
   flyway:
     image: flyway/flyway:6
-    command: -url=jdbc:mysql://db -schemas=todo -user=todo_user -password=p4sf0r#!todo -connectRetries=60 migrate
+    command: -url=jdbc:mysql://mariadb -schemas=todo -user=todo_user -password='p4sf0r#!todo' -connectRetries=60 migrate
     volumes:
       - .:/flyway/sql
     depends_on:
-      - maraidb
+      - mariadb
