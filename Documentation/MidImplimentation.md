@@ -50,4 +50,7 @@ I wanted to make this project with node.js typescript. Because I was told that I
 I decided to use Jest for testing. It is default for react and can be used with simple node.js so why not use it in both. Other option I would have considered is Mocha. 
 I decided to use newest packages for everything. If making production environment i would have used little bit older versions to ensure that they actually work well.
 I also decided to use commonjs for eslint because i dont like semicolons, also it seems to be the recommended one.
+I had quite a lot problems with making node.js project working with yest and typescript. This was te first time i made a project like that.
+for swagger i used https://levelup.gitconnected.com/swagger-time-to-document-that-express-api-you-built-9b8faaeae563 this tutorial
+
 
