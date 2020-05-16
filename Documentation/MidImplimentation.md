@@ -9,12 +9,12 @@
 2. Make Database
     - Design database for necessary functions
     - implement it in flyway
-3. Implement documentations
-    - research current best documentation for node.js and react
-    - Implement documentation for node.js and react project bases
-4. Implement automation test
-    - research current best testsuite for node and react.js
-    - implement bases
+3. Implement node
+    - research best documentation and tests
+    - impliment
+4. Implement react
+    - research best documentation and tests
+    - impliment
 5. Make Api
     - Plan necessary getters and setters
     - Make authentication function placeholders
@@ -42,4 +42,12 @@ I Decided to plan database first, because it defines how i make my gui and other
 To make my life easier i decided that notes will be shown in one list. This is easy to show on all screen sizes. 
 I also decided to make only one wall without authentication. so i removed mentions of authentication from my plans. This makes my database a lot simpler. However i plan everything in a way that authentication and multiple users are possible to implement on a later date.
 
+
+At this point i Changed my task order again. I decided that it was better to implement one project at a time with documentation and tests.
+
+## 3. Creating node project
+I wanted to make this project with node.js typescript. Because I was told that I should learn it.
+I decided to use Jest for testing. It is default for react and can be used with simple node.js so why not use it in both. Other option I would have considered is Mocha. 
+I decided to use newest packages for everything. If making production environment i would have used little bit older versions to ensure that they actually work well.
+I also decided to use commonjs for eslint because i dont like semicolons, also it seems to be the recommended one.
 
