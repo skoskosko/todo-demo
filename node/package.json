@@ -1,5 +1,5 @@
 {
-  "name": "todo",
+  "name": "todo-api",
   "version": "0.1.0",
   "description": "todo app backend",
   "main": "src/server.ts",

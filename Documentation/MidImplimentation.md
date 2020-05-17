@@ -53,4 +53,21 @@ I also decided to use commonjs for eslint because i dont like semicolons, also i
 I had quite a lot problems with making node.js project working with yest and typescript. This was te first time i made a project like that.
 for swagger i used https://levelup.gitconnected.com/swagger-time-to-document-that-express-api-you-built-9b8faaeae563 this tutorial
 
+https://jsdoc.app/howto-es2015-classes.html <- Link i need later for cheking my documentation syntax
+
+
+
+## 4. Creating react project
+I haven't created a react project before. It looks a lot like Vue so hopefully it is not a problem.
+I used https://medium.com/@feralamillo/create-react-app-typescript-testing-with-jest-and-enzyme-869fdba1bd3 to get me started
+
+I am not as familiar with react as with node so I dont add anything extra at this point. I dont think my lint is currently working as intended but I dont know how it should work on this, so what can I do...
+
+
+https://www.inkoop.io/blog/a-guide-to-js-docs-for-react-js/ <- Link i need later for cheking my documentation syntax
+
+## 5. Make node api. (Finally to the fun part!)
+
+Just making calls and functions that i need. And documenting them. 
+I start with easy ones and then go to CHANCE PLACES ones when i have tested the easy ones.
 
