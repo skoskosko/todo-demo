@@ -9,10 +9,5 @@ services:
       - MYSQL_PASSWORD=p4sf0r#!todo
       - MYSQL_DATABASE=todo
       - MYSQL_RANDOM_ROOT_PASSWORD=true
-  flyway:
-    image: flyway/flyway:6
-    command: -url=jdbc:mysql://mariadb -schemas=todo -user=todo_user -password='p4sf0r#!todo' -connectRetries=60 migrate
-    volumes:
-      - .:/flyway/sql
-    depends_on:
-      - mariadb
+    ports:
+      - "3306:3306"

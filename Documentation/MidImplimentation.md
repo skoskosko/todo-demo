@@ -71,3 +71,21 @@ https://www.inkoop.io/blog/a-guide-to-js-docs-for-react-js/ <- Link i need later
 Just making calls and functions that i need. And documenting them. 
 I start with easy ones and then go to CHANCE PLACES ones when i have tested the easy ones.
 
+To make my api work i need. 
+
+get/put/post/delete for users
+get/put/post/delete for notes 
+Note place swapping post
+
+Nothing else? probably not..
+
+I wanted to take full use of typescript so i tried with typeorm
+https://www.npmjs.com/package/typeorm
+https://www.infoq.com/articles/typescript-mysql/
+Appereantly typeorm can handle database migrations too. Well at least creation.. 
+So i removed my flyway. That was some useless work....
+
+
+
+
+

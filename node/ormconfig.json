@@ -1,0 +1,19 @@
+{
+    "type": "mariadb",
+    "host": "localhost",
+    "port": 3306,
+    "username": "todo_user",
+    "password": "p4sf0r#!todo",
+    "database": "todo",
+    "synchronize": true,
+    "logging": false,
+    "entities": [
+       "src/entity/**/*.ts"
+    ],
+    "migrations": [
+       "src/migration/**/*.ts"
+    ],
+    "subscribers": [
+       "src/subscriber/**/*.ts"
+    ]
+ }
