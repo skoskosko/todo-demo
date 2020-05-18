@@ -82,10 +82,12 @@ Nothing else? probably not..
 I wanted to take full use of typescript so i tried with typeorm
 https://www.npmjs.com/package/typeorm
 https://www.infoq.com/articles/typescript-mysql/
-Appereantly typeorm can handle database migrations too. Well at least creation.. 
+Appereantly typeorm can handle database migrations too. Well at least creation.. Migration with some extra tricks. But then again. This can downgrade it too. So that is cool.
 So i removed my flyway. That was some useless work....
 
+I usually implement my own database class. But typeorm handles all that. I quite like sql(in its own way), but this time it seems I dont get to write it. 
 
+typeorm example i used https://github.com/typeorm/typescript-express-example
 
-
-
+I Decided to write all basic stuff first. 
+And implemnent little bit more documentation, tests, and ordering afterwards.

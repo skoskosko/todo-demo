@@ -8,10 +8,10 @@ const options = {
   swaggerDefinition: {
     openapi: '3.0.0',
     info: {
-      title: 'Time to document that Express API you built',
+      title: 'Todo template api documentation',
       version: '0.1.0',
       description:
-          'A test project to understand how easy it is to document and Express API',
+          'Simple api for handling notes',
       license: {
         name: 'MIT',
         url: 'https://choosealicense.com/licenses/mit/'
@@ -24,11 +24,11 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:3000/api'
+        url: 'http://localhost:8080/api'
       }
     ]
   },
-  apis: ['./src/routes.ts']
+  apis: ['./src/routes.ts', './src/entity/note.ts']
 }
 const specs = swaggerJsdoc(options)
 router.use('/', swaggerUi.serve)

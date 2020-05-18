@@ -2,6 +2,29 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToOne
 import { User } from './user'
 
 /** Notes Entity Class. */
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      Note:
+ *        type: object
+ *        properties:
+ *          title:
+ *            type: string
+ *            description: Title of the note.
+ *          text:
+ *            type: string
+ *            description: text body of the node.
+ *          assignedTo:
+ *            type: number
+ *            description: Id of the user note is assigned to.
+ *          after:
+ *            type: number
+ *            description: id of the note this note is placed under.
+ *        example:
+ *           title: Swagger Note
+ *           text: This note was created with swagger
+ */
 @Entity()
 export class Note {
   /** Generated Id for Note */
@@ -27,10 +50,10 @@ export class Note {
   after: Note;
 
   /** Notes last edit time. This will update on any change */
-  @Column({ type: 'timestamp', default: () => 'NOW()', onUpdate: 'NOW()' })
+  @Column({ type: 'timestamp', default: () => 'NOW()', onUpdate: 'NOW()', select: false, insert: false })
   lastEdited: Date;
 
   /** Notes initial creation time. This will not be edited after creation */
-  @Column({ type: 'timestamp', default: () => 'NOW()' })
+  @Column({ type: 'timestamp', default: () => 'NOW()', select: false, insert: false })
   createdAt: Date;
 }
