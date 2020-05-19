@@ -9,8 +9,21 @@ import { Note } from '../entity/note'
 export async function putNote (request: Request, response: Response) {
   const noteManager = getManager().getRepository(Note)
   if (request.body) {
-    const newNote = noteManager.create(request.body)
+    var after : Note|null = null
+    if (request.body.after !== undefined) {
+      after = request.body.after
+      request.body.after = null
+    }
+    const newNote: any = noteManager.create(request.body)
     await noteManager.save(newNote)
+    if (after) {
+      const afterNote: Note|null = await noteManager.findOne(after)
+      const oldFollower: Note|null = await noteManager.findOne({ where: [{ after: after }] })
+      if (oldFollower) { // old followers after needs to be updated
+        await noteManager.update(oldFollower, { after: newNote.id })
+      }
+      await noteManager.update(newNote, { after: afterNote })
+    }
     response.send(newNote)
   } else {
     response.status(400)

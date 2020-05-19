@@ -8,11 +8,17 @@ import { Note } from '../entity/note'
  */
 export async function deleteNote (request: Request, response: Response) {
   const noteManager = getManager().getRepository(Note)
-  const note = await noteManager.delete(request.params.noteId)
-  if (note.affected === 0) {
-    response.status(404)
-    response.end()
+  const note: Note|null = await noteManager.findOne(request.params.noteId, { relations: ['after'] })
+  if (!note) {
+    response.status(404).end()
     return
   }
+  const myOldFollower: Note|null = await noteManager.findOne({ where: [{ after: note }] })
+  if (myOldFollower) {
+    const iWasAfter: Note|null = note.after
+    await noteManager.update(note, { after: null })
+    await noteManager.update(myOldFollower, { after: iWasAfter })
+  }
+  await noteManager.delete(request.params.noteId)
   response.status(202).send('Accepted')
 }
