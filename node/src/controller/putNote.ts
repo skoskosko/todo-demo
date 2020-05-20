@@ -4,7 +4,9 @@ import { getManager } from 'typeorm'
 import { Note } from '../entity/note'
 
 /**
- * Gets single Note from database
+ * Creates new note
+ * Also hanfles placement of the note if defined on creation.
+ * This should not be defined in normal situations so this action is kind of useless
  */
 export async function putNote (request: Request, response: Response) {
   const noteManager = getManager().getRepository(Note)
@@ -24,7 +26,7 @@ export async function putNote (request: Request, response: Response) {
       }
       await noteManager.update(newNote, { after: afterNote })
     }
-    response.send(newNote)
+    response.status(201).send(newNote)
   } else {
     response.status(400)
     response.end()

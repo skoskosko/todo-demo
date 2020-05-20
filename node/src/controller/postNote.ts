@@ -4,7 +4,9 @@ import { getManager } from 'typeorm'
 import { Note } from '../entity/note'
 
 /**
- * Gets single Note from database
+ * Updates Notes
+ * Includes custom handling for after field. And ordering.
+ * These are a potential cause for bugs.
  */
 export async function postNote (request: Request, response: Response) {
   const noteManager = getManager().getRepository(Note)

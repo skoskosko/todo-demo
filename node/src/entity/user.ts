@@ -1,5 +1,18 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      User:
+ *        type: object
+ *        properties:
+ *          name:
+ *            type: string
+ *            description: Name of the user
+ *        example:
+ *           name: Swagger Name
+ */
 /** Users entity class */
 @Entity()
 export class User {

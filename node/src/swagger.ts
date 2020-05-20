@@ -28,7 +28,7 @@ const options = {
       }
     ]
   },
-  apis: ['./src/routes.ts', './src/entity/note.ts']
+  apis: ['./src/routes.ts', './src/entity/note.ts', './src/entity/user.ts']
 }
 const specs = swaggerJsdoc(options)
 router.use('/', swaggerUi.serve)

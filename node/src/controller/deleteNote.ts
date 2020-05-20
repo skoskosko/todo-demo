@@ -4,7 +4,9 @@ import { getManager } from 'typeorm'
 import { Note } from '../entity/note'
 
 /**
- * Gets single Note from database
+ * Deletes Note
+ * Also includes custom handling for ordering of the notes.
+ * If note with followers is deleted. Notes current folowers (null or defined) will be transferred
  */
 export async function deleteNote (request: Request, response: Response) {
   const noteManager = getManager().getRepository(Note)

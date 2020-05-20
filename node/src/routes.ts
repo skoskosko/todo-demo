@@ -5,6 +5,12 @@ import { putNote } from './controller/putNote'
 import { deleteNote } from './controller/deleteNote'
 import { postNote } from './controller/postNote'
 
+import { getUsers } from './controller/getUsers'
+import { getUser } from './controller/getUser'
+import { putUser } from './controller/putUser'
+import { deleteUser } from './controller/deleteUser'
+import { postUser } from './controller/postUser'
+
 const router = express.Router()
 
 // middleware that is specific to this router
@@ -147,5 +153,126 @@ router.delete('/notes/:noteId', deleteNote)
  *          description: Body not found
  */
 router.post('/notes/:noteId', postNote)
+
+/**
+ * @swagger
+ * tags:
+ *   name: Users
+ *   description: Handling Users
+ */
+
+/**
+ * @swagger
+ * path:
+ *  /users:
+ *    get:
+ *      summary: Gets all users
+ *      tags: [Users]
+ *      responses:
+ *        "200":
+ *          description: Array of all users
+ */
+router.get('/users', getUsers)
+
+/**
+ * @swagger
+ * path:
+ *  /users/{userId}:
+ *    get:
+ *      summary: Gets specific note
+ *      tags: [Users]
+ *      parameters:
+ *        - in: path
+ *          name: userId
+ *          schema:
+ *            type: number
+ *          requred: true
+ *          description: Id of the user.
+ *      responses:
+ *        "200":
+ *          description: single user object
+ *        "404":
+ *          description: Item with given id was not found
+ */
+router.get('/users/:userId', getUser)
+
+/**
+ * @swagger
+ * path:
+ *  /users/:
+ *    put:
+ *      summary: Create a new user
+ *      tags: [Users]
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ *      responses:
+ *        "200":
+ *          description: A user schema
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
+ *        "400":
+ *          description: Body not found
+ */
+router.put('/users', putUser)
+
+/**
+ * @swagger
+ * path:
+ *  /users/{userId}:
+ *    delete:
+ *      summary: Deletes user
+ *      tags: [Users]
+ *      parameters:
+ *        - in: path
+ *          name: userId
+ *          schema:
+ *            type: number
+ *          requred: true
+ *          description: Id of the user to be deleted.
+ *      responses:
+ *        "202":
+ *          description: Object deleted
+ *        "404":
+ *          description: Item with given id was not found
+ */
+router.delete('/users/:userId', deleteUser)
+
+/**
+ * @swagger
+ * path:
+ *  /users/{userId}:
+ *    post:
+ *      summary: Create a new note
+ *      tags: [Users]
+ *      parameters:
+ *        - in: path
+ *          name: userId
+ *          schema:
+ *            type: number
+ *          requred: true
+ *          description: Id of the user to be edited.
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ *      responses:
+ *        "200":
+ *          description: A user schema
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
+ *        "400":
+ *          description: Body not found
+ */
+router.post('/users/:userId', postUser)
 
 export = router
