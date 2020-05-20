@@ -15,22 +15,8 @@ const router = express.Router()
 
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
-  console.log('Time: ', Date.now(), ' ', req.originalUrl)
+  // console.info('Time: ', Date.now(), ' ', req.originalUrl)
   next()
-})
-
-/**
- * @swagger
- * path:
- *  /:
- *    get:
- *      summary: Does nothing
- *      responses:
- *        "200":
- *          description: Test rest response
- */
-router.get('/', function (req, res) {
-  res.status(200).send('Test Rest')
 })
 
 /**
@@ -210,7 +196,7 @@ router.get('/users/:userId', getUser)
  *            schema:
  *              $ref: '#/components/schemas/User'
  *      responses:
- *        "200":
+ *        "201":
  *          description: A user schema
  *          content:
  *            application/json:

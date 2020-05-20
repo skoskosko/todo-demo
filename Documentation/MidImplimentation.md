@@ -91,3 +91,13 @@ typeorm example i used https://github.com/typeorm/typescript-express-example
 
 I Decided to write all basic stuff first. 
 And implemnent little bit more documentation, tests, and ordering afterwards.
+
+Now I am just wondering if i should have put every api endpoint in its own file. Or just users and notes file seperatly. Not that it matters but meaby if this api would have had more endpoints i would probably had to either put these files in subfolder or combine them a little bit.
+
+I also decided to test everything through api. This requires database to work but i dont really have any seperate functions to test without it anyways.
+For testing i decided to go with sqljs database so there would not be need to run mysql when testing. This makes my life a lot easier later on. 
+I also got lazy and becuase NOW or not any other timestamp workd with mariadb and sqllite so i just removed my on update and on create. If i had more time i would have just mocked mysql but I did not want to use too much time on this one. Maybe i fix it someday.
+
+But at least my tests work, and I even found some bugs when testing them out. Hopefully everything will work when i start working on the GUI
+
+## 6. Making GUI

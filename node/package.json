@@ -4,7 +4,7 @@
   "description": "todo app backend",
   "main": "src/server.ts",
   "scripts": {
-    "test": "jest --detectOpenHandles --colors",
+    "test": "jest --colors --detectOpenHandles",
     "start": "./node_modules/.bin/ts-node src/server.ts",
     "build": "tsc"
   },
@@ -25,6 +25,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "jest": "^26.0.1",
+    "sql.js": "^1.2.2",
     "supertest": "^4.0.2",
     "ts-jest": "^26.0.0",
     "ts-node": "^8.10.1",

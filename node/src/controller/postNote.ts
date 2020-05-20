@@ -18,12 +18,14 @@ export async function postNote (request: Request, response: Response) {
 
   if (oldNote.after == null && request.body.after !== undefined) {
     // move current follower to follow this note
-    const oldFollower: Note|null = await noteManager.findOne({ where: [{ after: request.body.after }] })
+    const itsOldFollower: Note|null = await noteManager.findOne({ where: [{ after: request.body.after }] })
     const myOldFollower: Note|null = await noteManager.findOne({ where: [{ after: oldNote }] })
-    if (oldFollower) { // old followers after needs to be updated
-      await noteManager.update(oldFollower, { after: oldNote })
+    if (itsOldFollower) { // old followers after needs to be updated
+      await noteManager.update(itsOldFollower, { after: oldNote })
     }
-    await noteManager.update(myOldFollower, { after: null })
+    if (myOldFollower) {
+      await noteManager.update(myOldFollower, { after: null })
+    }
   } else if (oldNote.after !== null && request.body.after !== null) {
     // move current follower to follow this note
     const oldFollower: Note|null = await noteManager.findOne({ where: [{ after: request.body.after }] })
@@ -32,7 +34,7 @@ export async function postNote (request: Request, response: Response) {
     if (myOldFollower) {
       await noteManager.update(myOldFollower, { after: null })
       await noteManager.update(oldFollower, { after: oldNote })
-      await noteManager.update(oldNote, { after: request.body.after })
+      await noteManager.update(oldNote, { after: null })
       await noteManager.update(myOldFollower, { after: iFollowed })
     } else {
       await noteManager.update(oldFollower, { after: oldNote })

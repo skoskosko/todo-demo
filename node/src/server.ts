@@ -1,5 +1,4 @@
 import app from './app'
-import 'reflect-metadata'
 import { createConnection } from 'typeorm'
 
 const PORT = process.env.PORT || 8080

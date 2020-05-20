@@ -8,7 +8,7 @@ import { Note } from '../entity/note'
  */
 export async function getNote (request: Request, response: Response) {
   const noteManager = getManager().getRepository(Note)
-  const note = await noteManager.findOne(request.params.noteId)
+  const note = await noteManager.findOne(request.params.noteId, { relations: ['after', 'assignedTo'] })
   if (!note) {
     response.status(404)
     response.end()

@@ -8,6 +8,6 @@ import { Note } from '../entity/note'
  */
 export async function getNotes (_request: Request, response: Response) {
   const noteManager = getManager().getRepository(Note)
-  const notes = await noteManager.find()
+  const notes = await noteManager.find({ relations: ['after', 'assignedTo'] })
   response.send(notes)
 }

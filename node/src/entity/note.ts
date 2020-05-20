@@ -48,12 +48,4 @@ export class Note {
   @OneToOne(type => Note)
   @JoinColumn()
   after: Note;
-
-  /** Notes last edit time. This will update on any change */
-  @Column({ type: 'timestamp', default: () => 'NOW()', onUpdate: 'NOW()', select: false, insert: false })
-  lastEdited: Date;
-
-  /** Notes initial creation time. This will not be edited after creation */
-  @Column({ type: 'timestamp', default: () => 'NOW()', select: false, insert: false })
-  createdAt: Date;
 }
