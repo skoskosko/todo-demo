@@ -5,12 +5,12 @@
   "main": "src/server.ts",
   "scripts": {
     "test": "jest --colors --detectOpenHandles",
-    "start": "./node_modules/.bin/ts-node src/server.ts",
-    "build": "tsc"
+    "start": "./node_modules/.bin/pm2-runtime start dist/server.js",
+    "serve": "./node_modules/.bin/ts-node src/server.ts",
+    "build": "./node_modules/.bin/tsc"
   },
   "author": "Esko Takku",
   "license": "MIT",
-  "type": "module",
   "devDependencies": {
     "@types/express": "^4.17.6",
     "@types/jest": "^25.2.2",
@@ -35,7 +35,7 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "mysql": "^2.18.1",
-    "reflect-metadata": "^0.1.13",
+    "pm2": "^4.4.0",
     "swagger-jsdoc": "^4.0.0",
     "swagger-ui-express": "^4.1.4",
     "typeorm": "^0.2.24"

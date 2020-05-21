@@ -6,6 +6,7 @@
     "declaration": true,
     "outDir": "./dist",
     "strict": false,
+    "emitDecoratorMetadata": true,
     "esModuleInterop": true
   },
   "include": [

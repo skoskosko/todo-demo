@@ -101,3 +101,10 @@ I also got lazy and becuase NOW or not any other timestamp workd with mariadb an
 But at least my tests work, and I even found some bugs when testing them out. Hopefully everything will work when i start working on the GUI
 
 ## 6. Making GUI
+
+Making GUI is always little bit annoying. You have some kind of vision and when you start chancing your mind. 
+I start making this QUI with vision of single page application with top bar. With search, add user and add note buttons. 
+Body of the ui is filled with notes. Ordered in columns if screen is wide enough. In one continous line if not(mobile). 
+
+I also noticed that i needed to create docker containers for my api. So i did that. It proved to be quite annoying to get typescript compiling working properly. In the end it was my type: "module" in package.json that did the trick. I was not making a node module after all...
+
