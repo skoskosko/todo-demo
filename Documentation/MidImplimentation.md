@@ -108,3 +108,37 @@ Body of the ui is filled with notes. Ordered in columns if screen is wide enough
 
 I also noticed that i needed to create docker containers for my api. So i did that. It proved to be quite annoying to get typescript compiling working properly. In the end it was my type: "module" in package.json that did the trick. I was not making a node module after all...
 
+I picked colors for my gui from https://coolors.co/
+/* CSS */
+--color1: hsla(197%, 54%, 33%, 1);
+--color2: hsla(207%, 31%, 45%, 1);
+--color3: hsla(209%, 82%, 22%, 1);
+
+/* HEX */
+$color1: #264653ff; main
+$color2: #4f6272ff; light
+$color3: #0a2239ff; dark
+
+/* HSL */
+$color1: hsla(197%, 54%, 33%, 1);
+$color2: hsla(207%, 31%, 45%, 1);
+$color3: hsla(209%, 82%, 22%, 1);
+
+/* RGB */
+$color1: rgba(38, 70, 83, 1);
+$color2: rgba(79, 98, 114, 1);
+$color3: rgba(10, 34, 57, 1);
+
+/* GRADIENT */
+$gradient-top: linear-gradient(0deg, #264653ff, #4f6272ff, #0a2239ff);
+$gradient-right: linear-gradient(90deg, #264653ff, #4f6272ff, #0a2239ff);
+$gradient-bottom: linear-gradient(180deg, #264653ff, #4f6272ff, #0a2239ff);
+$gradient-left: linear-gradient(270deg, #264653ff, #4f6272ff, #0a2239ff);
+$gradient-top-right: linear-gradient(45deg, #264653ff, #4f6272ff, #0a2239ff);
+$gradient-bottom-right: linear-gradient(135deg, #264653ff, #4f6272ff, #0a2239ff);
+$gradient-top-left: linear-gradient(225deg, #264653ff, #4f6272ff, #0a2239ff);
+$gradient-bottom-left: linear-gradient(315deg, #264653ff, #4f6272ff, #0a2239ff);
+$gradient-radial: radial-gradient(#264653ff, #4f6272ff, #0a2239ff);
+
+
+Also, im not a design guy. I can fight my way trough css but why would I? i decided to use https://material-ui.com
