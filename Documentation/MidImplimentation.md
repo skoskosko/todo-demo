@@ -142,3 +142,17 @@ $gradient-radial: radial-gradient(#264653ff, #4f6272ff, #0a2239ff);
 
 
 Also, im not a design guy. I can fight my way trough css but why would I? i decided to use https://material-ui.com
+
+Ui just changed in my mind. 
+
+Left side is list of notes. Filtered by top bar. 
+By clickin item it beomes active and is displayed on the right side. 
+
+If screen space is limited list will be showion under truncated and scrollable list. 
+COOL AINT IT
+
+material ui draggable list
+list is on left side. And it can be used to either activated normally or for editing. 
+icons edit and delete 
+https://github.com/atlassian/react-beautiful-dnd
+
