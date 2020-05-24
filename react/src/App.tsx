@@ -11,18 +11,18 @@ function getDirection(mediaQuery: boolean) {
   else return "column" // smaller than sm
 }
 function getXs1(mediaQuery: boolean) {
-  if(mediaQuery) return 3 // larger than sm
+  if(mediaQuery) return 4 // larger than sm
   else  return "auto" // smaller than sm
 }
 function getXs2(mediaQuery: boolean) {
-  if(mediaQuery) return 9 // larger than sm
+  if(mediaQuery) return 8 // larger than sm
   else  return "auto" // smaller than sm
 }
 
 
 function App() {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  const matches = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
     <div className="App">
