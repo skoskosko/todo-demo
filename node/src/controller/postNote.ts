@@ -15,16 +15,25 @@ export async function postNote (request: Request, response: Response) {
     response.status(404).end()
     return
   }
-
+  if (request.body.after === oldNote.id) {
+    delete request.body.after
+    let count = 0
+    // eslint-disable-next-line no-unused-vars
+    for (var _ in request.body.after) count = count + 1
+    if (count > 0) {
+      response.status(400).end()
+      return
+    }
+  }
   if (oldNote.after == null && request.body.after !== undefined) {
     // move current follower to follow this note
     const itsOldFollower: Note|null = await noteManager.findOne({ where: [{ after: request.body.after }] })
     const myOldFollower: Note|null = await noteManager.findOne({ where: [{ after: oldNote }] })
-    if (itsOldFollower) { // old followers after needs to be updated
-      await noteManager.update(itsOldFollower, { after: oldNote })
-    }
     if (myOldFollower) {
       await noteManager.update(myOldFollower, { after: null })
+    }
+    if (itsOldFollower) { // old followers after needs to be updated
+      await noteManager.update(itsOldFollower, { after: oldNote })
     }
   } else if (oldNote.after !== null && request.body.after !== null) {
     // move current follower to follow this note
@@ -33,13 +42,23 @@ export async function postNote (request: Request, response: Response) {
     const iFollowed = oldNote.after
     if (myOldFollower) {
       await noteManager.update(myOldFollower, { after: null })
-      await noteManager.update(oldFollower, { after: oldNote })
       await noteManager.update(oldNote, { after: null })
       await noteManager.update(myOldFollower, { after: iFollowed })
-    } else {
+    } if (oldFollower && oldFollower.id !== oldNote.id) {
       await noteManager.update(oldFollower, { after: oldNote })
+    } else if (oldFollower && oldFollower.id === oldNote.id) {
+      delete request.body.after
+      let count = 0
+      // eslint-disable-next-line no-unused-vars
+      for (var _ in request.body.after) count = count + 1
+      if (count > 0) {
+        response.status(400).end()
+        return
+      }
     }
   }
-  await noteManager.update(oldNote, request.body)
+  console.log(request.params.noteId, request.body)
+  await noteManager.update(request.params.noteId, request.body)
+
   response.send('OK')
 }
