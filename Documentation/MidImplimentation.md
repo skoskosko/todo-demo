@@ -156,3 +156,6 @@ list is on left side. And it can be used to either activated normally or for edi
 icons edit and delete 
 https://github.com/atlassian/react-beautiful-dnd
 
+I had a lot of problems with typescript and react. I decided to take the easy way out and only try to learn one new thing at once. I swapped to pure react with my project. 
+
+I decided to handle api calls with one class. This makes handling all the calls and possible future middleware a lot easier

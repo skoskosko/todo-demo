@@ -13,6 +13,7 @@ html, body, #root, #app>div {
 .panel1 {
   background-color: red;
   max-height: 100%;
+  overflow-y: scroll;
 }
 
 .panel2 {
