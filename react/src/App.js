@@ -23,11 +23,6 @@ function getXs2(mediaQuery) {
 
 
 function handleListDrag(result){
-  console.log("App.js change", result)
-  
-  // if (result.source && result.destination) array_move(items, result.source.index, result.destination.index )
-  // move item from spot
-  // source.index to destination.index
   notesHandler.handleDrag(result)
 }
 
@@ -37,7 +32,6 @@ function App() {
   const [n, setN] = useState(0);
   function updateState(){
     setN(n + 1);
-    // console.log(notesHandler.getNotes())
   }
   notesHandler.setCallback(updateState)
   const theme = useTheme();

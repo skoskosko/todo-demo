@@ -63,72 +63,33 @@ class NoteHandler{
     this.renderList()
   }
   
-  // array_move(arr, old_index, new_index) {
-  //   if (new_index >= arr.length) {
-  //       var k = new_index - arr.length + 1;
-  //       while (k--) {
-  //           arr.push(undefined);
-  //       }
-  //   }
-  //   arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
-  //   // return arr; // for testing
-  // };
+  array_move(arr, old_index, new_index) {
+    if (new_index >= arr.length) {
+        var k = new_index - arr.length + 1;
+        while (k--) {
+            arr.push(undefined);
+        }
+    }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+    // return arr; // for testing
+  };
 
   handleDrag(result) {
-    console.log(result)
-    // array_move(items, result.source.index, result.destination.index )
     if (result.source && result.destination) {
-      // Update note
-      if(result.destination.index === 0 && result.source.index !== 0 ) {
-        console.log("1", this.sortedNotes[result.source.index].id, " to null and " , this.sortedNotes[0].id , " after it")
-        axios.post( process.env.REACT_APP_API_URL + `/api/notes/` + this.sortedNotes[result.source.index].id, { after: null 
-        }).then(res => { 
-            axios.post( process.env.REACT_APP_API_URL + `/api/notes/` + this.sortedNotes[0].id, {after: this.sortedNotes[result.source.index].id
-            }).then(res => { this.getNotesHard()})
-        })
-      }else if(result.destination.index === 0 && result.source.index === 0 ) {
-        console.log("2", this.sortedNotes[result.source.index].id, " to null and " , this.sortedNotes[1].id , " after it")
-        axios.post( process.env.REACT_APP_API_URL + `/api/notes/` + this.sortedNotes[result.source.index].id, { after: null 
-        }).then(res => { 
-            axios.post( process.env.REACT_APP_API_URL + `/api/notes/` + this.sortedNotes[1].id, {after: this.sortedNotes[result.source.index].id
-            }).then(res => { this.getNotesHard()})
-        })
-      }else if (result.destination.index <= result.source.index) {
-        console.log("3", this.sortedNotes[result.source.index].id, " after ", this.sortedNotes[result.destination.index-1].id)
-        axios.post( process.env.REACT_APP_API_URL + `/api/notes/` + this.sortedNotes[result.source.index].id, { after: this.sortedNotes[result.destination.index-1].id 
-        }).then(res => { this.getNotesHard()
-        })
-      }else {
-        console.log("4", this.sortedNotes[result.source.index].id, " after ", this.sortedNotes[result.destination.index].id)
-        axios.post( process.env.REACT_APP_API_URL + `/api/notes/` + this.sortedNotes[result.source.index].id, { after: this.sortedNotes[result.destination.index].id 
-        }).then(res => { this.getNotesHard()
-        })
+      this.array_move(this.sortedNotes, result.source.index, result.destination.index)
+      let note_order = []
+      for(const note of this.sortedNotes){
+        note_order.push(note.id)
       }
-      
-
-      // if(result.destination.index === 0) {
-        // Set result.source.index after as null and set current 0 to have it after as result.source.index
-
-      // }else {
-      //   // set result.source.index after as result.destination.index-1
-      //   if(this.sortedNotes[result.destination.index-1].id !== this.sortedNotes[result.source.index].id){
-      //     axios.post( process.env.REACT_APP_API_URL + `/api/notes/` + this.sortedNotes[result.source.index].id, {
-      //       after: this.sortedNotes[result.destination.index-1].id
-      //     })
-      //       .then(res => {
-      //         console.log("updated", res)
-      //         this.getNotesHard()
-      //     })
-      //   }
-        
-      // }
-      // this.sortNotes()
+      axios.post( process.env.REACT_APP_API_URL + `/api/notes/order`, {order: note_order})
+      .then(res => {
+        this.getNotesHard()
+      })
     }
   }
 
 
   getNotes() {
-    console.log(this.sortedNotes)
     return this.sortedNotes
   }
 

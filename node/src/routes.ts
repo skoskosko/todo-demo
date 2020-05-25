@@ -4,6 +4,7 @@ import { getNote } from './controller/getNote'
 import { putNote } from './controller/putNote'
 import { deleteNote } from './controller/deleteNote'
 import { postNote } from './controller/postNote'
+import { postNoteOrder } from './controller/postNoteOrder'
 
 import { getUsers } from './controller/getUsers'
 import { getUser } from './controller/getUser'
@@ -107,6 +108,28 @@ router.put('/notes', putNote)
  *          description: Item with given id was not found
  */
 router.delete('/notes/:noteId', deleteNote)
+
+/**
+ * @swagger
+ * path:
+ *  /notes/order:
+ *    post:
+ *      summary: Create a new note
+ *      tags: [Notes]
+ *      parameters:
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              order: array of id s in decired order
+ *      responses:
+ *        "200":
+ *          description: A note schema
+ *        "400":
+ *          description: Body not found
+ */
+router.post('/notes/order', postNoteOrder)
 
 /**
  * @swagger
