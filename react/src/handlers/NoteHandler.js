@@ -3,6 +3,7 @@ import axios from 'axios';
 class NoteHandler{
   notes = []
   sortedNotes = []
+  active = null
 
   constructor(renderList) {
     this.renderList = () => {}
@@ -15,6 +16,7 @@ class NoteHandler{
       const notes = res.data
       this.notes = notes
       this.sortNotes()
+      this.renderList()
     })
   }
 
@@ -88,11 +90,45 @@ class NoteHandler{
     }
   }
 
+  setActive(id) {
+    this.active = id
+  }
+
+  getActive() {
+    for(const note of this.notes){
+      if (note.id === this.active) return note
+    }
+    return {title: "Placeholder", text: "Click on a note to read it."}
+  }
 
   getNotes() {
     return this.sortedNotes
   }
 
+  deleteNote(id){
+    axios.delete( process.env.REACT_APP_API_URL + `/api/notes/` + id)
+      .then(res => {
+        this.getNotesHard()
+      })
+  }
+
+  editNote(note){
+    axios.post( process.env.REACT_APP_API_URL + `/api/notes/` + note.id, {title: note.title, text: note.text})
+      .then(res => {
+        this.getNotesHard()
+      })
+  }
+
+  addNote(note){
+    axios.put( process.env.REACT_APP_API_URL + `/api/notes`, {title: note.title, text: note.text, after:this.sortedNotes[this.sortedNotes.length-1].id })
+      .then(res => {
+        this.getNotesHard()
+      })
+  }
+
+  callCallback(){
+    this.renderList()
+  }
   
 }
 

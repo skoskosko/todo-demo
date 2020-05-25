@@ -110,35 +110,43 @@ I also noticed that i needed to create docker containers for my api. So i did th
 
 I picked colors for my gui from https://coolors.co/
 /* CSS */
---color1: hsla(197%, 54%, 33%, 1);
---color2: hsla(207%, 31%, 45%, 1);
---color3: hsla(209%, 82%, 22%, 1);
+--color1: hsla(0, 0%, 0%, 1);
+--color2: hsla(221, 67%, 24%, 1);
+--color3: hsla(37, 93%, 99%, 1);
+--color4: hsla(0, 0%, 90%, 1);
+--color5: hsla(0, 0%, 100%, 1);
 
 /* HEX */
-$color1: #264653ff; main
-$color2: #4f6272ff; light
-$color3: #0a2239ff; dark
+$color1: #000000ff;
+$color2: #14213dff;
+$color3: #fca311ff;
+$color4: #e5e5e5ff;
+$color5: #ffffffff;
 
 /* HSL */
-$color1: hsla(197%, 54%, 33%, 1);
-$color2: hsla(207%, 31%, 45%, 1);
-$color3: hsla(209%, 82%, 22%, 1);
+$color1: hsla(0, 0%, 0%, 1);
+$color2: hsla(221, 67%, 24%, 1);
+$color3: hsla(37, 93%, 99%, 1);
+$color4: hsla(0, 0%, 90%, 1);
+$color5: hsla(0, 0%, 100%, 1);
 
 /* RGB */
-$color1: rgba(38, 70, 83, 1);
-$color2: rgba(79, 98, 114, 1);
-$color3: rgba(10, 34, 57, 1);
+$color1: rgba(0, 0, 0, 1);
+$color2: rgba(20, 33, 61, 1);
+$color3: rgba(252, 163, 17, 1);
+$color4: rgba(229, 229, 229, 1);
+$color5: rgba(255, 255, 255, 1);
 
 /* GRADIENT */
-$gradient-top: linear-gradient(0deg, #264653ff, #4f6272ff, #0a2239ff);
-$gradient-right: linear-gradient(90deg, #264653ff, #4f6272ff, #0a2239ff);
-$gradient-bottom: linear-gradient(180deg, #264653ff, #4f6272ff, #0a2239ff);
-$gradient-left: linear-gradient(270deg, #264653ff, #4f6272ff, #0a2239ff);
-$gradient-top-right: linear-gradient(45deg, #264653ff, #4f6272ff, #0a2239ff);
-$gradient-bottom-right: linear-gradient(135deg, #264653ff, #4f6272ff, #0a2239ff);
-$gradient-top-left: linear-gradient(225deg, #264653ff, #4f6272ff, #0a2239ff);
-$gradient-bottom-left: linear-gradient(315deg, #264653ff, #4f6272ff, #0a2239ff);
-$gradient-radial: radial-gradient(#264653ff, #4f6272ff, #0a2239ff);
+$gradient-top: linear-gradient(0deg, #000000ff, #14213dff, #fca311ff, #e5e5e5ff, #ffffffff);
+$gradient-right: linear-gradient(90deg, #000000ff, #14213dff, #fca311ff, #e5e5e5ff, #ffffffff);
+$gradient-bottom: linear-gradient(180deg, #000000ff, #14213dff, #fca311ff, #e5e5e5ff, #ffffffff);
+$gradient-left: linear-gradient(270deg, #000000ff, #14213dff, #fca311ff, #e5e5e5ff, #ffffffff);
+$gradient-top-right: linear-gradient(45deg, #000000ff, #14213dff, #fca311ff, #e5e5e5ff, #ffffffff);
+$gradient-bottom-right: linear-gradient(135deg, #000000ff, #14213dff, #fca311ff, #e5e5e5ff, #ffffffff);
+$gradient-top-left: linear-gradient(225deg, #000000ff, #14213dff, #fca311ff, #e5e5e5ff, #ffffffff);
+$gradient-bottom-left: linear-gradient(315deg, #000000ff, #14213dff, #fca311ff, #e5e5e5ff, #ffffffff);
+$gradient-radial: radial-gradient(#000000ff, #14213dff, #fca311ff, #e5e5e5ff, #ffffffff);
 
 
 Also, im not a design guy. I can fight my way trough css but why would I? i decided to use https://material-ui.com
@@ -163,3 +171,7 @@ I decided to handle api calls with one class. This makes handling all the calls 
 
 
 I used a lot of time at fighting with my note ordering. I decided to remove all of it and make it a more database heavy but less programming demanding way. old methods can be seen in old commits.
+
+I changed some colors and added all the basic functionality. 
+
+Still to do assignees, and filtering. Then it si to tests and cleanup
