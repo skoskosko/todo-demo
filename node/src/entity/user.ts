@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm'
 
 /**
  * @swagger
@@ -13,8 +13,12 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
  *        example:
  *           name: Swagger Name
  */
-/** Users entity class */
+/** Users entity class
+ *  This class is quite useless atm.
+ *  It will be more useful if application is extended to support authentication.
+ */
 @Entity()
+@Unique(['name'])
 export class User {
   /** Generated Id for User */
   @PrimaryGeneratedColumn()

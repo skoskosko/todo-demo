@@ -43,6 +43,8 @@ export default function SimpleCard(props) {
   };
 
   // const classes = useStyles();
+  var assignee = ""
+  if (props.assignedTo) assignee = props.assignedTo.name;
 
   return (
     <Card>
@@ -54,7 +56,7 @@ export default function SimpleCard(props) {
           </IconButton>
         }
         title={props.title}
-        subheader={props.author}
+        subheader={assignee}
       />
 
       <CardContent>
@@ -69,7 +71,7 @@ export default function SimpleCard(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-         <MenuItem> <NoteDialog text={props.text} title={props.title} assignee={props.assignee} noteId={props.noteId} cb={props.editCb} buttonMode="Edit"  /> </MenuItem>
+         <MenuItem> <NoteDialog text={props.text} title={props.title} assignedTo={props.assignedTo} noteId={props.noteId} cb={props.editCb} userCb={props.userCb} users={props.users} buttonMode="Edit"  /> </MenuItem>
          <MenuItem> <NoteDeleteDialog  noteId={props.noteId} deleteCb={props.deleteCb}/> </MenuItem>
       </Menu>
     </Card>

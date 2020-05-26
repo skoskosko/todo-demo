@@ -175,3 +175,5 @@ I used a lot of time at fighting with my note ordering. I decided to remove all 
 I changed some colors and added all the basic functionality. 
 
 Still to do assignees, and filtering. Then it si to tests and cleanup
+
+Filtering and Snackbars todo

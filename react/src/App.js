@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import HeaderBar from './components/HeaderBar';
 import NoteList from './components/NoteList';
 import NoteCard from './components/NoteCard';
-import NoteHandler from './handlers/NoteHandler';
+import ApiHandler from './handlers/ApiHandler';
 import Grid from "@material-ui/core/Grid";
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -24,46 +24,51 @@ function getXs2(mediaQuery) {
 }
 
 function handleListDrag(result){
-  notesHandler.handleDrag(result)
+  apiHandler.handleDrag(result)
 }
 
 function handleActive(result){
-  notesHandler.setActive(result)
-  notesHandler.callCallback()
+  apiHandler.setActive(result)
+  apiHandler.callCallback()
 }
 function deleteNote(id){
-  notesHandler.deleteNote(id)
+  apiHandler.deleteNote(id)
 }
 
 function editNote(note){
-  notesHandler.editNote(note)
+  apiHandler.editNote(note)
 }
 
 function addNote(note){
-  notesHandler.addNote(note)
+  apiHandler.addNote(note)
 }
 
-var notesHandler = new NoteHandler();
+function handleUser(data, what){
+  if(what==="add") apiHandler.addUser(data)
+  if(what==="delete") apiHandler.deleteUser(data)
+}
+
+var apiHandler = new ApiHandler();
 
 function App() {
   const [n, setN] = useState(0);
   function updateState(){
     setN(n + 1);
   }
-  notesHandler.setCallback(updateState)
+  apiHandler.setCallback(updateState)
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
   return (
     <div className="App">
-      <HeaderBar addCb={addNote}></HeaderBar>
+      <HeaderBar addCb={addNote} users={apiHandler.getUsers()} userCb={handleUser} ></HeaderBar>
 
       <Grid className="fill" container direction={getDirection(matches)}>
         <Grid className="panel1" item xs={getXs1(matches)}>
-          <NoteList items={notesHandler.getNotes()} handleDrag={handleListDrag} handleActive={handleActive} />
+          <NoteList items={apiHandler.getNotes()} handleDrag={handleListDrag} handleActive={handleActive} />
         </Grid>
         <Grid item xs={getXs2(matches)}>
           <Container className="panel2" >
-            <NoteCard title={notesHandler.getActive().title} text={notesHandler.getActive().text} noteId={notesHandler.getActive().id} deleteCb={deleteNote} editCb={editNote} />
+            <NoteCard title={apiHandler.getActive().title} users={apiHandler.getUsers()} assignedTo={apiHandler.getActive().assignedTo} text={apiHandler.getActive().text} userCb={handleUser} noteId={apiHandler.getActive().id} deleteCb={deleteNote} editCb={editNote} />
           </Container>
         </Grid>
       </Grid>

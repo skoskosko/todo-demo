@@ -5,11 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Menu from '@material-ui/core/Menu';
 import NoteDialog from './NoteDialog'
 
 const useStyles = makeStyles((theme) => ({
@@ -68,18 +64,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function HeaderBar(props) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
 
   const classes = useStyles();
-  var FilterBy = "Assignee"
   return (
     <AppBar position="static" color="primary">
        <Toolbar>
@@ -88,34 +74,15 @@ function HeaderBar(props) {
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
-            onClick={handleMenu}
           >
-            <MenuIcon />
+           <NoteDialog cb={props.addCb} userCb={props.userCb} users={props.users} buttonMode="Add"  /> 
           </IconButton>
 
-          <Menu
-            id="adding-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem><NoteDialog cb={props.addCb} buttonMode="Add"  /> </MenuItem>
-          </Menu>
 
 
           <Typography className={classes.title} variant="h6" noWrap>
             Esko Takku - Note Demo
           </Typography>
-          <div className={classes.search}>
-            
-            <Select className={classes.inputRoot} labelId="label" id="select" value={FilterBy}>
-              <MenuItem value="Assignee">Assignee</MenuItem>
-              <MenuItem value="Title">Title</MenuItem>
-              <MenuItem value="Text">Text</MenuItem>
-            </Select>
-
-          </div>
           <div className={classes.search}>
             
             <div className={classes.searchIcon}>

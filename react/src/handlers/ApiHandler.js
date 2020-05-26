@@ -1,9 +1,11 @@
 import axios from 'axios';
 
-class NoteHandler{
+class ApiHandler{
   notes = []
+  users = []
   sortedNotes = []
   active = null
+
 
   constructor(renderList) {
     this.renderList = () => {}
@@ -16,8 +18,16 @@ class NoteHandler{
       const notes = res.data
       this.notes = notes
       this.sortNotes()
-      this.renderList()
+      this.getUsersHard()
     })
+  }
+
+  getUsersHard(){
+    axios.get( process.env.REACT_APP_API_URL + `/api/users`)
+      .then(res => {
+        this.users = res.data
+        this.renderList()
+      })
   }
 
   setCallback(cb){
@@ -62,7 +72,6 @@ class NoteHandler{
     let sortedArray = lonelyNulls
     for (let i in stacks) sortedArray = sortedArray.concat(stacks[i])
     this.sortedNotes = sortedArray
-    this.renderList()
   }
   
   array_move(arr, old_index, new_index) {
@@ -98,7 +107,7 @@ class NoteHandler{
     for(const note of this.notes){
       if (note.id === this.active) return note
     }
-    return {title: "Placeholder", text: "Click on a note to read it."}
+    return {title: "Placeholder", text: "Click on a note to read it. Or click plus at top left to add new."}
   }
 
   getNotes() {
@@ -113,17 +122,40 @@ class NoteHandler{
   }
 
   editNote(note){
-    axios.post( process.env.REACT_APP_API_URL + `/api/notes/` + note.id, {title: note.title, text: note.text})
+    if(note.assignee === "") note.assignee = null
+    axios.post( process.env.REACT_APP_API_URL + `/api/notes/` + note.id, {title: note.title, text: note.text, assignedTo:note.assignee})
       .then(res => {
         this.getNotesHard()
       })
   }
 
   addNote(note){
-    axios.put( process.env.REACT_APP_API_URL + `/api/notes`, {title: note.title, text: note.text, after:this.sortedNotes[this.sortedNotes.length-1].id })
+    let after = null
+    if(this.sortedNotes[this.sortedNotes.length-1]) after = this.sortedNotes[this.sortedNotes.length-1].id
+    axios.put( process.env.REACT_APP_API_URL + `/api/notes`, {title: note.title, text: note.text, after: after, assignedTo:note.assignee })
       .then(res => {
         this.getNotesHard()
       })
+  }
+
+  addUser(name){
+    axios.put( process.env.REACT_APP_API_URL + `/api/users`, { name: name })
+      .then(res => {
+        this.getNotesHard()
+      })
+  }
+
+  deleteUser(id){
+    console.log(id)
+    axios.delete( process.env.REACT_APP_API_URL + `/api/users/` + id)
+      .then(res => {
+        this.getNotesHard()
+      })
+  }
+
+
+  getUsers(){
+    return this.users
   }
 
   callCallback(){
@@ -132,4 +164,4 @@ class NoteHandler{
   
 }
 
-export default NoteHandler;
+export default ApiHandler;
