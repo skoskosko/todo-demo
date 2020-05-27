@@ -59,7 +59,7 @@ function NoteList(props) {
                       item.id
                     )}
                   >
-                    {item.id} - {item.title}
+                    {item.title}
 
                   </div>
                 )}

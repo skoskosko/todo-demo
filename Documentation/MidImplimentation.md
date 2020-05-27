@@ -177,3 +177,16 @@ I changed some colors and added all the basic functionality.
 Still to do assignees, and filtering. Then it si to tests and cleanup
 
 Filtering and Snackbars todo
+
+Gui stuff is extremely annoying. I spent 99% of my time programmin fighting to make my search aut suggestive. But i just could not get react to stop changing my textfield focus due to re-rendering. 
+I just made it with Enter instead )=
+
+React fron is working. Most of my time wen to useless stuff. Like ordering notes. And making gui look like at least somewhat acceptable
+
+## 7. Cleanup and checkpoint
+
+Now i clean up my horrific react code. That is what it becomes whe you dont have enough experiense with language you are working with. 
+After cleanup and comments it is time for some tests and docker containers. 
+
+This should not take long.
+

@@ -132,6 +132,7 @@ class ApiHandler{
   addNote(note){
     let after = null
     if(this.sortedNotes[this.sortedNotes.length-1]) after = this.sortedNotes[this.sortedNotes.length-1].id
+    if(note.assignee === "") note.assignee = null
     axios.put( process.env.REACT_APP_API_URL + `/api/notes`, {title: note.title, text: note.text, after: after, assignedTo:note.assignee })
       .then(res => {
         this.getNotesHard()
@@ -153,6 +154,21 @@ class ApiHandler{
       })
   }
 
+  find(text) {
+    text = text.split(' ');
+    return this.notes.filter(function(item) {
+
+      return text.every(function(el) {
+
+        if(item.assignedTo) return (item.title.toUpperCase().indexOf(el.toUpperCase()) > -1 || item.text.toUpperCase().indexOf(el.toUpperCase()) > -1 || item.assignedTo.name.toUpperCase().indexOf(el.toUpperCase()) > -1);
+        else return (item.title.toUpperCase().indexOf(el.toUpperCase()) > -1 || item.text.toUpperCase().indexOf(el.toUpperCase()) > -1);
+
+      });
+
+    });
+
+  }
+  
 
   getUsers(){
     return this.users

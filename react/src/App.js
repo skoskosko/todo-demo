@@ -31,6 +31,9 @@ function handleActive(result){
   apiHandler.setActive(result)
   apiHandler.callCallback()
 }
+
+
+
 function deleteNote(id){
   apiHandler.deleteNote(id)
 }
@@ -48,6 +51,10 @@ function handleUser(data, what){
   if(what==="delete") apiHandler.deleteUser(data)
 }
 
+function searchCb(term, cb){
+  cb(apiHandler.find(term))
+}
+
 var apiHandler = new ApiHandler();
 
 function App() {
@@ -60,7 +67,7 @@ function App() {
   const matches = useMediaQuery(theme.breakpoints.up('md'));
   return (
     <div className="App">
-      <HeaderBar addCb={addNote} users={apiHandler.getUsers()} userCb={handleUser} ></HeaderBar>
+      <HeaderBar searchCb={searchCb} addCb={addNote} users={apiHandler.getUsers()} userCb={handleUser} handleActive={handleActive} ></HeaderBar>
 
       <Grid className="fill" container direction={getDirection(matches)}>
         <Grid className="panel1" item xs={getXs1(matches)}>
