@@ -195,3 +195,16 @@ And while writing this documentation i once again remember how much better it is
 I added docker containers for everything and published it to https://note-wall.com 
 
 Before CI i should probably make atleast few react tests..
+
+4. is a few ......
+
+## 8. CI pipelines
+
+Changed my mind again. 
+
+I implimented everything with github actions. 
+
+
+## 9. AWS Cloudformation
+
+This will take some time to learn. But i will use this project to learn that too.
