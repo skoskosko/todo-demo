@@ -9,11 +9,22 @@ services:
       - MYSQL_PASSWORD=p4sf0r#!todo
       - MYSQL_DATABASE=todo
       - MYSQL_RANDOM_ROOT_PASSWORD=true
-    ports:
-      - "3306:3306"
+    # ports:
+    #   - "3306:3306"
   node:
     build: node
-    ports:
-      - "8080:8080"
+    # ports:
+    #   - "8080:8080"
     depends_on: 
       - mariadb
+  react:
+    build: react
+    # ports:
+    #   - "5000:80"
+  proxy:
+    build: proxy
+    depends_on: 
+      - node
+      - react
+    ports:
+      - "5000:5000"

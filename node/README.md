@@ -1,6 +1,17 @@
 # Node.js backend
 Api documentation is made with swagger in /docs path. 
 
-Tests are made with jest npm test
+Tests are made with jest 
+Use `npm test` to run
 
-Documentation is in jsdoc format but not generated. You can generate it yourself if you see it necessary.
+
+This app should not be run directly with 
+`npm run serve`
+Unless developing or debugging. 
+Remember to also edit ormconfig for correct database.
+
+Normal usage should be with docker containers
+
+
+
+This program is made with node.js + typescript

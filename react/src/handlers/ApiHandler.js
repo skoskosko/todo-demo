@@ -243,6 +243,12 @@ class ApiHandler {
     return this.users
   }
 
+  /**
+   * Called in App.js to fire re.render outside component
+   */
+  callCallback() {
+    this.renderList()
+  }
 }
 
 export default ApiHandler;
