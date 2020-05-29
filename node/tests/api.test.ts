@@ -101,43 +101,23 @@ describe('Executor', () => {
   describe('Set Note order', () => {
     it('should return 200', async () => {
       const res = await request(app)
-        .post('/api/notes/2')
+        .post('/api/notes/order')
         .send({
-          after: 1
-        })
-      expect(res.statusCode).toEqual(200)
-    })
-  })
-  describe('Set Note order', () => {
-    it('should return 200', async () => {
-      const res = await request(app)
-        .post('/api/notes/3')
-        .send({
-          after: 1
-        })
-      expect(res.statusCode).toEqual(200)
-    })
-  })
-  describe('Set Note order', () => {
-    it('should return 200', async () => {
-      const res = await request(app)
-        .post('/api/notes/4')
-        .send({
-          after: 3
+          order: [4, 1, 3, 2, 0]
         })
       expect(res.statusCode).toEqual(200)
     })
   })
   describe('Check Note order', () => {
     it('should return 200', async () => {
-      const assumedOrder = [null, 4, 1, 3, null]
+      const assumedOrder = [2, 4, 3, 1, null]
       for (var i = 1; i <= 5; i++) {
         const res = await request(app)
           .get('/api/notes/' + i)
           .send()
         expect(res.statusCode).toEqual(200)
-        if (assumedOrder[i - 1] != null) {
-          expect(res.body.after.id).toEqual(assumedOrder[i - 1])
+        if (res.body.after) {
+          expect(res.body.after.id).toEqual(assumedOrder[i])
         }
       }
     })

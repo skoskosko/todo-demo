@@ -1,22 +1,20 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
-import EditIcon from '@material-ui/icons/Edit';
-import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-
-
+import React from 'react'
+import { withStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import MuiDialogTitle from '@material-ui/core/DialogTitle'
+import MuiDialogContent from '@material-ui/core/DialogContent'
+import MuiDialogActions from '@material-ui/core/DialogActions'
+import IconButton from '@material-ui/core/IconButton'
+import CloseIcon from '@material-ui/icons/Close'
+import Typography from '@material-ui/core/Typography'
+import EditIcon from '@material-ui/icons/Edit'
+import AddIcon from '@material-ui/icons/Add'
+import DeleteIcon from '@material-ui/icons/Delete'
+import TextField from '@material-ui/core/TextField'
+import Select from '@material-ui/core/Select'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
 
 const styles = (theme) => ({
   root: {
@@ -66,23 +64,36 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 
-
+/**
+ * NoteDialog class is used for editing and creating nodes. 
+ * It also handles creating and deleting users.
+ * 
+ * @param {props} props 
+ * @param {number | null} props.noteId id of the note to edit
+ * @param {object | null} props.assignedTo ovject containing users "id" and "name"
+ * @param {callback} props.cb Callback for editing or creating notes
+ * @param {callback} props.userCb Callback for creating or deleting users
+ * @param {callback} props.buttonMode Mode of the button Edit or Add
+ * @param {string | null} props.title title of the note
+ * @param {string | null} props.text text of the note
+ * @param {array} props.users array of the aviable users
+ */
 export default function NoteDialog(props) {
-  
-  const [assignee, setAssignee] = React.useState("");
-  const [open, setOpen] = React.useState(false);
-  const [assigneeOpen, setAssigneeOpen] = React.useState(false);
-  const [userDelete, setUserDelete] = React.useState(false);
 
-  const handleClickOpen = () => { 
+  const [assignee, setAssignee] = React.useState("")
+  const [open, setOpen] = React.useState(false)
+  const [assigneeOpen, setAssigneeOpen] = React.useState(false)
+  const [userDelete, setUserDelete] = React.useState(false)
+
+  const handleClickOpen = () => {
     if (props.assignedTo) setAssignee(props.assignedTo.id)
-    setOpen(true); 
+    setOpen(true);
   };
-  const handleClose = () => { setOpen(false); };
-  const openAsigneeAdd = () => { setAssigneeOpen(true) };
-  const closeAsigneeAdd = () => { setAssigneeOpen(false) };
-  const openUserDelete = () => { setUserDelete(true) };
-  const closeUserDelete = () => { setUserDelete(false) };
+  const handleClose = () => { setOpen(false) }
+  const openAsigneeAdd = () => { setAssigneeOpen(true) }
+  const closeAsigneeAdd = () => { setAssigneeOpen(false) }
+  const openUserDelete = () => { setUserDelete(true) }
+  const closeUserDelete = () => { setUserDelete(false) }
   const handleSave = () => {
     const note = {
       id: props.noteId,
@@ -90,19 +101,19 @@ export default function NoteDialog(props) {
       title: document.getElementById("editable-note-title").value,
       assignee: assignee
     };
-    props.cb(note);
-    setOpen(false);
-  };
-  const handleUserAdd= () => {
+    props.cb(note)
+    setOpen(false)
+  }
+  const handleUserAdd = () => {
     const name = document.getElementById("new-user-name").value;
     props.userCb(name, "add")
     setAssigneeOpen(false)
-  };
-  const handleUserDelete= () => {    
+  }
+  const handleUserDelete = () => {
     props.userCb(assignee, "delete")
     setUserDelete(false)
-  };
-  
+  }
+
   return (
     <div>
       {props.buttonMode === "Edit" ? <div onClick={handleClickOpen}><EditIcon /> Edit </div>
@@ -123,29 +134,28 @@ export default function NoteDialog(props) {
         </DialogTitle>
         <DialogContent dividers>
 
-            <InputLabel shrink id="select-note-assignee-label">
-              Assignee
+          <InputLabel shrink id="select-note-assignee-label">
+            Assignee
           </InputLabel>
-            <Select
-              labelId="select-note-assignee-label"
-              id="select-note-assignee"
-              value={assignee}
-              displayEmpty
-              onChange={(e) => {setAssignee(e.target.value)}}
-              className={styles.selectEmpty}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {props.users.map((value, index) => {
-                return <MenuItem key={value.id} value={value.id}>{value.name}</MenuItem>
-              })}
-              
-            </Select>
+          <Select
+            labelId="select-note-assignee-label"
+            id="select-note-assignee"
+            value={assignee}
+            displayEmpty
+            onChange={(e) => { setAssignee(e.target.value) }}
+            className={styles.selectEmpty}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            {props.users.map((value, index) => {
+              return <MenuItem key={value.id} value={value.id}>{value.name}</MenuItem>
+            })}
 
-            <AddIcon onClick={openAsigneeAdd}/>
-            <DeleteIcon  onClick={openUserDelete} />
+          </Select>
 
+          <AddIcon onClick={openAsigneeAdd} />
+          <DeleteIcon onClick={openUserDelete} />
 
         </DialogContent>
         <DialogContent dividers>
@@ -168,7 +178,6 @@ export default function NoteDialog(props) {
         </DialogActions>
       </Dialog>
 
-
       <Dialog onClose={closeAsigneeAdd} aria-labelledby="customized-dialog-title" open={assigneeOpen}>
         <DialogTitle id="customized-dialog-title" onClose={closeAsigneeAdd}>
           <TextField
@@ -184,7 +193,7 @@ export default function NoteDialog(props) {
           </Button>
         </DialogActions>
       </Dialog>
-      
+
       <Dialog onClose={closeUserDelete} aria-labelledby="customized-dialog-title" open={userDelete}>
         <DialogActions>
           <Button autoFocus onClick={handleUserDelete} color="primary">

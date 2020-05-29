@@ -1,38 +1,40 @@
-import React, { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import React, { useState } from "react"
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 const grid = 8
 var active = null
 
-function handleActive(clicked, cb){
-  if(active === clicked) active = null
+function handleActive(clicked, cb) {
+  if (active === clicked) active = null
   else active = clicked
   cb()
 }
 
 const getItemStyle = (isDragging, draggableStyle, id) => ({
-  // some basic styles to make the items look a bit nicer
   userSelect: "none",
   padding: grid * 2,
   margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? "lightgreen" : "#91989c",
+  background: isDragging ? "lightgreen" : "#91989c",
   borderStyle: id === active ? "solid" : "none",
-
-  // styles we need to apply on draggables
   ...draggableStyle
 });
 
 const getListStyle = (isDraggingOver) => ({
-  // background: isDraggingOver ? "lightblue" : "",
   padding: grid,
   width: "auto"
 });
 
+/**
+ * Component that renders notes into a dragganble list
+ * 
+ * @param {props} props  handleActive handleDrag items
+ * @param {callback} props.handleActive callback to App.js for item click
+ * @param {callback} props.handleDrag callback to App.js for drags
+ * @param {array} props.items Array of the items in wanted order
+ */
 function NoteList(props) {
   const [n, setN] = useState(0);
-  function updateActive(){
+  function updateActive() {
     props.handleActive(active)
     setN(n + 1);
   }
