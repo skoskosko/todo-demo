@@ -181,6 +181,7 @@ export default function NoteDialog(props) {
       <Dialog onClose={closeAsigneeAdd} aria-labelledby="customized-dialog-title" open={assigneeOpen}>
         <DialogTitle id="customized-dialog-title" onClose={closeAsigneeAdd}>
           <TextField
+            key="new-user-field"
             id="new-user-name"
             label="Username"
             type="text"
@@ -188,7 +189,7 @@ export default function NoteDialog(props) {
           />
         </DialogTitle>
         <DialogActions>
-          <Button autoFocus onClick={handleUserAdd} color="primary">
+          <Button onClick={handleUserAdd} color="primary">
             Add User
           </Button>
         </DialogActions>

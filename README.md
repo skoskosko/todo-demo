@@ -2,7 +2,7 @@
 This program was created with following requirements.
 
 ### demo
-https://note-wall.com/
+https://note-wall.com/  (No monitoring. So if it breaks i may not notice it.)
 
 
 ###  Simple program for adding and editing notes, with possibility to add assignees.

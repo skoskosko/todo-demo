@@ -3,6 +3,7 @@ version: '3'
 services:
   mariadb:
     image: mariadb:10.4
+    restart: unless-stopped
     environment:
       - MYSQL_ROOT_PASSWORD=R07Pasword
       - MYSQL_USER=todo_user
@@ -13,16 +14,19 @@ services:
     #   - "3306:3306"
   node:
     build: node
+    restart: unless-stopped
     # ports:
     #   - "8080:8080"
     depends_on: 
       - mariadb
   react:
+    restart: unless-stopped
     build: react
     # ports:
     #   - "5000:80"
   proxy:
     build: proxy
+    restart: unless-stopped
     depends_on: 
       - node
       - react
