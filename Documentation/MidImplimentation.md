@@ -191,3 +191,7 @@ After cleanup and comments it is time for some tests and docker containers.
 This should not take long.
 My documentation is probably wrong but i wanted to have my prosp show as parameters to make everything nice
 And while writing this documentation i once again remember how much better it is to write while programming.
+
+I added docker containers for everything and published it to https://note-wall.com 
+
+Before CI i should probably make atleast few react tests..

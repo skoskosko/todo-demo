@@ -73,7 +73,7 @@ const DialogActions = withStyles((theme) => ({
  * @param {object | null} props.assignedTo ovject containing users "id" and "name"
  * @param {callback} props.cb Callback for editing or creating notes
  * @param {callback} props.userCb Callback for creating or deleting users
- * @param {callback} props.buttonMode Mode of the button Edit or Add
+ * @param {string} props.buttonMode Mode of the button Edit or Add
  * @param {string | null} props.title title of the note
  * @param {string | null} props.text text of the note
  * @param {array} props.users array of the aviable users
