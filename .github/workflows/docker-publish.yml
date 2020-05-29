@@ -22,3 +22,20 @@ jobs:
 
       - name: Push image
         run: docker push skoskosko/todo-demo-back:latest
+  push-front:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build image
+        run: docker build . --file Dockerfile --tag skoskosko/todo-demo-front:latest
+        working-directory: react
+
+      - name: Log into registry
+        run: echo "${{ secrets.DOCKER_SECRET_TOKEN }}" | docker login -u skoskosko --password-stdin
+
+      - name: Push image
+        run: docker push skoskosko/todo-demo-front:latest
+
