@@ -19,7 +19,8 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build image
-        run: docker build . --file node/Dockerfile --tag $IMAGE_NAME
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME
+        working-directory: node
 
       - name: Log into registry
         run: echo "${{ secrets.DOCKER_SECRET_TOKEN }}" | docker login docker.pkg.github.com -u skoskosko --password-stdin
