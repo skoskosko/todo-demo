@@ -11,4 +11,5 @@ WORKDIR /app
 COPY --from=builder ./app/dist ./dist
 COPY *.json ./
 RUN npm install --production
+EXPOSE 8080
 CMD ["npm", "start"]
