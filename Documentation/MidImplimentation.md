@@ -208,3 +208,7 @@ I implimented everything with github actions.
 ## 9. AWS Cloudformation
 
 This will take some time to learn. But i will use this project to learn that too.
+
+So far working with cloudformation it seems that i will be swapping aws console for that. 
+It gives much clearer view of what you are working with when everything is defined in single file. 
+Console can still be used for checking out that everything is up (Until i learn how to use aws CLI properly)  but I dont think tehere is really need to manually put anything up when in production. 

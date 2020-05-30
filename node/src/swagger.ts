@@ -8,7 +8,7 @@ const options = {
   swaggerDefinition: {
     openapi: '3.0.0',
     info: {
-      title: 'Todo template api documentation',
+      title: 'Todo api documentation',
       version: '0.1.0',
       description:
           'Simple api for handling notes',
@@ -17,14 +17,14 @@ const options = {
         url: 'https://choosealicense.com/licenses/mit/'
       },
       contact: {
-        name: 'Swagger',
-        url: 'https://swagger.io',
-        email: 'Info@SmartBear.com'
+        name: 'Todo Demo',
+        url: 'https://github.com/skoskosko/todo-demo',
+        email: 'esko.takku@gmail.com'
       }
     },
     servers: [
       {
-        url: 'http://localhost:8080/api'
+        url: '/api'
       }
     ]
   },
