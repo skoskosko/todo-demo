@@ -12,6 +12,12 @@ Remember to also edit ormconfig for correct database.
 
 Normal usage should be with docker containers
 
+REQUired env variables are 
+TYPEORM_HOST
+TYPEORM_USERNAME
+TYPEORM_PASSWORD
+TYPEORM_DATABASE
+
 
 
 This program is made with node.js + typescript
