@@ -3,22 +3,24 @@ This folder contains resources necessary for publishing this application to aws 
 I used these resources (And others but these mostly)
 https://www.infoq.com/articles/aws-vpc-cloudformation/
 https://github.com/1Strategy/fargate-cloudformation-example/blob/master/fargate.yaml
-
-Metadata: 
-
-Parameters: 
-
-Mappings: 
-
-Conditions: 
-
-Outputs:
+and of course aws docs
 
 
-I could have used a lot more properties and automated namings. but i wanted to keep it as simple as possible, for I dont have a lot of experience with cloudformation.
+## wat?
+
+This is publishing two containers from dockerhub into aws fargate. 
+Database is created as a rds mariadb.
+Forwarding to containers is handled with aws loadbalancers. 
+
 
 ## usage
 
-I tested this stack with aws cloudfromation tool 
+I tested this stack with aws cloudfromation tool in __FRANKFURT__.
 
 So aws console and search CloudFormation. Then i created new stack and imported this file.
+
+Because i did not want to put my dns to aws this is published trough public aws loadbalancer
+
+To get the url go to aws console EC2 > Load Balancers Open Todo-ServiceLoadBalancer and get the DNS name. 
+
+That is the public url for the application in aws

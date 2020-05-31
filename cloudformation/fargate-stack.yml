@@ -3,21 +3,28 @@ Description: Todo-Demo fargate publication
 Parameters:
   Image:
     Type: String
-    # Update with the Docker image. "You can use images in the Docker Hub registry or specify other repositories (repository-url/image:tag)."
     Default: skoskosko/todo-demo-back:latest
+  ImageFront:
+    Type: String
+    Default: skoskosko/todo-demo-front:latest
   ServiceName:
     Type: String
-    # update with the name of the service
     Default: Todo-Service
   ContainerPort:
     Type: Number
     Default: 8080
+  ContainerPortFront:
+    Type: Number
+    Default: 80 
   LoadBalancerPort:
     Type: Number
     Default: 80
   HealthCheckPath:
     Type: String
-    Default: /docs
+    Default: /docs/
+  HealthCheckPathFront:
+    Type: String
+    Default: /
 Resources:
   # VPC where all of this is used from
   VPC:
@@ -89,17 +96,51 @@ Resources:
     Properties: 
       RouteTableId: !Ref PublicRouteTable
       SubnetId: !Ref SubnetB
+  rdsDBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: All vpcs subnets
+      SubnetIds:
+        - !Ref SubnetA
+        - !Ref SubnetB
+  # Mariadb rds intance
+  rdsDBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: 20
+      DBInstanceClass: db.t2.micro
+      AllowMajorVersionUpgrade: false
+      AutoMinorVersionUpgrade: true
+      DeleteAutomatedBackups: true
+      AvailabilityZone: eu-central-1a
+      DBInstanceIdentifier: !Join ['', [!Ref ServiceName, Database]]
+      DBName: todo
+      VPCSecurityGroups: 
+        - !Ref ContainerSecurityGroup
+      DBSubnetGroupName: !Ref rdsDBSubnetGroup
+      Engine: mariadb
+      EngineVersion: 10.3.13
+      MasterUsername: todo_user
+      MasterUserPassword: pas!hs32341
+      Port: 3306
+      PubliclyAccessible: false
+      StorageType:  standard
+      Tags:
+        - Key: Name
+          Value: !Join ['', [!Ref ServiceName, Database]]
   # ECS Cluster is needed even if we use fargate. 
   Cluster:
     Type: AWS::ECS::Cluster
     Properties:
       ClusterName: !Join ['', [!Ref ServiceName, Cluster]]
-  # This Defines our image itself. And gives it limits so it does not spend all my money
-  TaskDefinition:
+  # This Defines our api image itself. And gives it limits so it does not spend all my money
+  TaskDefinitionAPI:
     Type: AWS::ECS::TaskDefinition
-    DependsOn: LogGroup
+    DependsOn: 
+      - LogGroup
+      - rdsDBInstance
     Properties:
-      Family: !Join ['', [!Ref ServiceName, TaskDefinition]]
+      Family: !Join ['', [!Ref ServiceName, TaskDefinitionApi]]
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
@@ -108,17 +149,52 @@ Resources:
       ExecutionRoleArn: !Ref ExecutionRole
       TaskRoleArn: !Ref TaskRole
       ContainerDefinitions:
-        - Name: !Ref ServiceName
+        - Name: !Join ['', [!Ref ServiceName, Back]]
           Image: !Ref Image
           PortMappings:
             - ContainerPort: !Ref ContainerPort
+          # Send logs to CloudWatch Logs
+          Environment:
+            - Name: TYPEORM_HOST
+              Value: !Ref rdsDBInstance
+            - Name: TYPEORM_USERNAME
+              Value: todo_user
+            - Name: TYPEORM_PASSWORD
+              Value: pas!hs32341
+            - Name: TYPEORM_DATABASE
+              Value: todo
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-region: !Ref AWS::Region
+              awslogs-group: !Ref LogGroup
+              awslogs-stream-prefix: ecs-back
+
+  TaskDefinitionFront:
+    Type: AWS::ECS::TaskDefinition
+    DependsOn: 
+      - LogGroup
+    Properties:
+      Family: !Join ['', [!Ref ServiceName, TaskDefinitionFront]]
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      Cpu: 256
+      Memory: 0.5GB
+      ExecutionRoleArn: !Ref ExecutionRole
+      TaskRoleArn: !Ref TaskRole
+      ContainerDefinitions:
+        - Name: !Join ['', [!Ref ServiceName, Front]]
+          Image: !Ref ImageFront
+          PortMappings:
+            - ContainerPort: !Ref ContainerPortFront
           # Send logs to CloudWatch Logs
           LogConfiguration:
             LogDriver: awslogs
             Options:
               awslogs-region: !Ref AWS::Region
               awslogs-group: !Ref LogGroup
-              awslogs-stream-prefix: ecs
+              awslogs-stream-prefix: ecs-front
   # ECS clusters service needs role so it has permision to be created
   ExecutionRole:
     Type: AWS::IAM::Role
@@ -154,6 +230,14 @@ Resources:
           FromPort: !Ref ContainerPort
           ToPort: !Ref ContainerPort
           SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
+        - IpProtocol: tcp
+          FromPort: !Ref ContainerPortFront
+          ToPort: !Ref ContainerPortFront
+          SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup        
   # Load balaner needs to be open to the world. So we can use same group here
   LoadBalancerSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -165,14 +249,15 @@ Resources:
           FromPort: !Ref LoadBalancerPort
           ToPort: !Ref LoadBalancerPort
           CidrIp: 0.0.0.0/0
+
   Service:
     Type: AWS::ECS::Service
     DependsOn:
       - ListenerHTTP
     Properties: 
-      ServiceName: !Ref ServiceName
+      ServiceName: !Join ['', [!Ref ServiceName, BackService]]
       Cluster: !Ref Cluster
-      TaskDefinition: !Ref TaskDefinition
+      TaskDefinition: !Ref TaskDefinitionAPI
       DeploymentConfiguration:
         MinimumHealthyPercent: 100
         MaximumPercent: 200
@@ -190,10 +275,39 @@ Resources:
           SecurityGroups:
             - !Ref ContainerSecurityGroup
       LoadBalancers:
-        - ContainerName: !Ref ServiceName
+        - ContainerName: !Join ['', [!Ref ServiceName, Back]]
           ContainerPort: !Ref ContainerPort
           TargetGroupArn: !Ref TargetGroup
   
+  ServiceFront:
+    Type: AWS::ECS::Service
+    DependsOn:
+      - ListenerHTTP
+    Properties: 
+      ServiceName: !Join ['', [!Ref ServiceName, FrontService]]
+      Cluster: !Ref Cluster
+      TaskDefinition: !Ref TaskDefinitionFront
+      DeploymentConfiguration:
+        MinimumHealthyPercent: 100
+        MaximumPercent: 200
+      DesiredCount: 1
+      # This may need to be adjusted if the container takes a while to start up
+      HealthCheckGracePeriodSeconds: 30
+      LaunchType: FARGATE
+      NetworkConfiguration: 
+        AwsvpcConfiguration:
+          # change to DISABLED if you're using private subnets that have access to a NAT gateway
+          AssignPublicIp: ENABLED
+          Subnets:
+            - !Ref SubnetA
+            - !Ref SubnetB
+          SecurityGroups:
+            - !Ref ContainerSecurityGroup
+      LoadBalancers:
+        - ContainerName: !Join ['', [!Ref ServiceName, Front]]
+          ContainerPort: !Ref ContainerPortFront
+          TargetGroupArn: !Ref TargetGroupFront
+
   TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
@@ -211,15 +325,50 @@ Resources:
           Value: 60 # default is 300
       TargetType: ip
       VpcId: !Ref VPC
+
+  TargetGroupFront:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckIntervalSeconds: 10
+      # will look for a 200 status code by default unless specified otherwise
+      HealthCheckPath: !Ref HealthCheckPathFront
+      HealthCheckTimeoutSeconds: 5
+      UnhealthyThresholdCount: 2
+      HealthyThresholdCount: 2
+      Name: !Join ['', [!Ref ServiceName, TargetGroupFront]]
+      Port: !Ref ContainerPortFront
+      Protocol: HTTP
+      TargetGroupAttributes:
+        - Key: deregistration_delay.timeout_seconds
+          Value: 60 # default is 300
+      TargetType: ip
+      VpcId: !Ref VPC
+
+  ListenerRuleAPI:
+    Type: 'AWS::ElasticLoadBalancingV2::ListenerRule'
+    Properties:
+      Actions:
+        - Type: forward
+          TargetGroupArn: !Ref TargetGroup
+      Conditions:
+        - Field: 'path-pattern'
+          PathPatternConfig:
+            Values:
+              - /api/*
+              - /docs/*
+      ListenerArn: !Ref ListenerHTTP
+      Priority: 1
+
   ListenerHTTP:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
       DefaultActions:
-        - TargetGroupArn: !Ref TargetGroup
+        - TargetGroupArn: !Ref TargetGroupFront
           Type: forward
       LoadBalancerArn: !Ref LoadBalancer
       Port: !Ref LoadBalancerPort
       Protocol: HTTP
+
   LoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
