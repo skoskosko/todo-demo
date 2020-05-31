@@ -5,7 +5,6 @@ services:
     image: mariadb:10.4
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD=R07Pasword
       - MYSQL_USER=todo_user
       - MYSQL_PASSWORD=p4sf0r#!todo
       - MYSQL_DATABASE=todo
@@ -15,6 +14,11 @@ services:
   node:
     build: node
     restart: unless-stopped
+    environment:
+      - TYPEORM_HOST=mariadb
+      - TYPEORM_USERNAME=todo_user
+      - TYPEORM_PASSWORD=p4sf0r#!todo
+      - TYPEORM_DATABASE=todo
     # ports:
     #   - "8080:8080"
     depends_on: 
