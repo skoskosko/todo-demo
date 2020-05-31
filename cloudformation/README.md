@@ -1,12 +1,7 @@
+# CloudFormation
+
 This folder contains resources necessary for publishing this application to aws fargate. 
 
-I used these resources (And others but these mostly)
-https://www.infoq.com/articles/aws-vpc-cloudformation/
-https://github.com/1Strategy/fargate-cloudformation-example/blob/master/fargate.yaml
-and of course aws docs
-
-
-## wat?
 
 This is publishing two containers from dockerhub into aws fargate. 
 Database is created as a rds mariadb.

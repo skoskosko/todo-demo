@@ -214,3 +214,8 @@ It gives much clearer view of what you are working with when everything is defin
 Console can still be used for checking out that everything is up (Until i learn how to use aws CLI properly)  but I dont think tehere is really need to manually put anything up when in production. 
 
 Also cloudformation was a lot easier to do than i expected. Of course my file is not perfect but whole process is well documentet and quite easy to do.
+
+I used these resources (And others but these mostly)
+https://www.infoq.com/articles/aws-vpc-cloudformation/
+https://github.com/1Strategy/fargate-cloudformation-example/blob/master/fargate.yaml
+and of course aws docs
