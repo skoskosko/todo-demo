@@ -23,4 +23,8 @@ Because i did not want to put my dns to aws this is published trough public aws 
 
 To get the url go to aws console EC2 > Load Balancers Open Todo-ServiceLoadBalancer and get the DNS name. 
 
-That is the public url for the application in aws
+That is the public url for the application in aws add 
+
+/ is front
+/docs/ is swagger
+/api/notes for example returns all notes.

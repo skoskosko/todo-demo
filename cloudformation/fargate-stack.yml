@@ -124,7 +124,7 @@ Resources:
       MasterUserPassword: pas!hs32341
       Port: 3306
       PubliclyAccessible: false
-      StorageType:  standard
+      StorageType: gp2
       Tags:
         - Key: Name
           Value: !Join ['', [!Ref ServiceName, Database]]
@@ -156,7 +156,7 @@ Resources:
           # Send logs to CloudWatch Logs
           Environment:
             - Name: TYPEORM_HOST
-              Value: !Ref rdsDBInstance
+              Value: !GetAtt rdsDBInstance.Endpoint.Address
             - Name: TYPEORM_USERNAME
               Value: todo_user
             - Name: TYPEORM_PASSWORD
