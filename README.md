@@ -20,6 +20,7 @@ extra:
  - Reactive mobile friendly ui :white_check_mark:
  - nice documentation swagger etc. :white_check_mark:
  - ci pipelines with github actions :white_check_mark:
+ - Cloudformation automatic publishing :white_check_mark:
 
 This project comes with extra specific documentation. These files are in "Documentation" folder. Those files are for explaining my decisions and for giving better image about my tought process. I do not normally make these files inside version control, but on postit notes and handwritten notes. 
 
