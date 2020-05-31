@@ -30,7 +30,7 @@ Documentations that i normally make are in this README and inside projects subfo
 
 [Mid implimentation notices](./Documentation/MidImplimentation.md)
 
-
+[Final Thoughts](./Documentation/FinalNotes.md)
 
 ## Usage
 
