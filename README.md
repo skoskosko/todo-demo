@@ -48,3 +48,7 @@ docker-compose stop
 docker-compose up
 
 application should be in http://localhost:5000/
+
+## AWS
+
+cloudformation folder contains necessary information and files for automatic aws publication. 
